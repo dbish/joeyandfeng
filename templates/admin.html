@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+
+<title>JZ.8.31.18</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{{url_for('static', filename='style.css')}}"
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<style>
+body,h1,h2{font-family: "Raleway", sans-serif}
+body, html {height: 100%}
+p {line-height: 2}
+.bgimg, .bgimg2 {
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+.bgimg {background-image: url("{{url_for('static', filename='fengandjoey1.jpg')}}")}
+.bgimg2 {background-image: url("{{url_for('static', filename='bellagio.jpg')}}")}
+</style>
+
+
+
+<div class="w3-container w3-padding-64 w3-pale-red w3-center w3-wide" id="rsvp">
+	<form action="/godView" method="post">
+		{{inviteListForm.csrf_token()}}
+		<table border="1">
+			<tr>
+			 <th>Invite Code</th>
+			 <th>Name</th>
+			 <th>Allocated</th>
+			 <th>Attending</th>
+			 <th>RSVPd (UTC)</th>
+			</tr>
+			{% for invite in inviteListForm.invitees %}
+			<tr>
+			{{invite.csrf_token()}}
+			 <td>{{invite.inviteID(readonly=true)}}</td>
+			 <td>{{invite.guestName}}</td>
+			 <td>{{invite.allocated}}</td>
+			 <td>{{invite.attending}}</td>
+			{% if invite.rsvpd.data == "" %}
+			 <td>no</td>
+			{% else %}
+			 <td>yes</td>
+			{% endif %}
+			</tr>
+			{% endfor %}
+		</table>
+		<button type="submit">Update</button>
+	</form>
+</div>
+<!-- Header / Home-->
+<header class="w3-display-container w3-wide bgimg w3-grayscale-min" id="home">
+  <div class="w3-display-middle w3-text-white w3-center">
+    <h1 class="w3-jumbo">Feng & Joey</h1>
+    <h2>Are getting married</h2>
+    <h2><b>08.31.2018</b></h2>
+  </div>
+</header>
+	<!-- Footer -->
+	<footer class="w3-center w3-black w3-padding-16">
+	  <p>JZ '18</p>
+	</footer>
+	<div class="w3-hide-small" style="margin-bottom:32px">&nbsp;</div>
+	</body>
+</html>

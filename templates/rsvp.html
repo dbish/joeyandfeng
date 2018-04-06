@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+
+<title>JZ.8.31.18</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{{url_for('static', filename='style.css')}}"
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<style>
+body,h1,h2{font-family: "Raleway", sans-serif}
+body, html {height: 100%}
+p {line-height: 2}
+.bgimg, .bgimg2 {
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+.bgimg {background-image: url("{{url_for('static', filename='fengandjoey1.jpg')}}")}
+.bgimg2 {background-image: url("{{url_for('static', filename='bellagio.jpg')}}")}
+</style>
+
+
+<!-- Navbar (sticky bottom) -->
+<div class="w3-bottom w3-hide-small">
+  <div class="w3-bar w3-white w3-center w3-padding w3-opacity-min w3-hover-opacity-off">
+    <a href="joeyandfeng.com#home" style="width:25%" class="w3-bar-item w3-button">Home</a>
+    <a href="joeyandfeng#us" style="width:25%" class="w3-bar-item w3-button">Feng & Joey</a>
+    <a href="joeyandfeng#wedding" style="width:25%" class="w3-bar-item w3-button">Wedding</a>
+    <a href="#" style="width:25%" class="w3-bar-item w3-button">RSVP</a>
+  </div>
+</div>
+
+
+<div class="w3-container w3-padding-64 w3-pale-red w3-center w3-wide" id="rsvp">
+		{% if completed %}
+		Thanks for RSVPing! You can still make updates to your choice until May 1st using the form below.
+		{% endif %}
+		<h1>RSVP for The Event of the season</h1>
+		{% if invite %}
+		<p>Please enter the details of your RSVP.</p>
+		<form action="{{url_for('rsvp', iid=iid)}}" method="post">
+			{{rsvpForm.hidden_tag()}}
+			<p>Name: {{name}}</p>
+			<p>Will you be attending? {{rsvpForm.isAttending}}</p>
+			{% if rsvpForm.partySize %}
+			<p>Size of party?{{rsvpForm.partySize}}</p>
+			{% endif %}
+			<p>{{rsvpForm.submit()}}</p>
+		</form>	
+
+		{% else %}
+		<p>Please enter the invitation code that you received in your email.</p>
+		<form action="{{url_for('invitationCode')}}" method="post">
+			{{form.hidden_tag()}}
+			<p>{{form.iid}}</p>
+			<p>{{form.submit()}}</p>
+		</form>	
+		{% endif %}
+</div>
+<!-- Header / Home-->
+<header class="w3-display-container w3-wide bgimg w3-grayscale-min" id="home">
+  <div class="w3-display-middle w3-text-white w3-center">
+    <h1 class="w3-jumbo">Feng & Joey</h1>
+    <h2>Are getting married</h2>
+    <h2><b>08.31.2018</b></h2>
+  </div>
+</header>
+	<!-- Footer -->
+	<footer class="w3-center w3-black w3-padding-16">
+	  <p>JZ '18</p>
+	</footer>
+	<div class="w3-hide-small" style="margin-bottom:32px">&nbsp;</div>
+	</body>
+</html>

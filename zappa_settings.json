@@ -1,0 +1,8 @@
+{
+	"dev":{
+		"s3_bucket":"wedding-invite-site-dev",
+		"app_function":"app.app",
+		"certificate_arn":"arn:aws:acm:us-east-1:068980474223:certificate/3302df4c-e6ce-4b5a-9739-ca26c53ec736",
+		"domain":"www.joeyandfeng.com",
+	}
+}
