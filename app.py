@@ -40,46 +40,16 @@ def getIIDInfo(iid):
 
 #@app.route('/rsvp', methods=['GET'])
 
-@app.route('/godView', methods=['GET', 'POST'])
+@app.route('/godView', methods=['GET'])
 def admin():
 	inviteListForm = InviteListForm()
 	table = dynamodb.Table('invitees-dev')
 
-	if inviteListForm.is_submitted():
-		if inviteListForm.validate_on_submit():
-			for invite in inviteListForm.invitees:
-				table.update_item(
-					Key={
-						'InviteID':invite.inviteID.data
-					},
-					UpdateExpression='SET AllowedCount=:val0, GuestName=:val1, Attending=:val2',
-					ExpressionAttributeValues={
-						':val0':invite.allocated.data,
-						':val1':invite.guestName.data,
-						':val2':invite.attending.data
-					}
-				)
-			return(redirect(url_for('admin')))
-		
-		else:
-			print(inviteListForm.errors)
-		
-	else:
-		#get all invite info
-		inviteListForm = InviteListForm()
-		response = table.scan()
-		invites = response['Items']
-		for invitee in invites:
-			inviteForm = InviteForm()
-			inviteForm.inviteID = invitee['InviteID']
-			inviteForm.guestName = invitee['GuestName']
-			inviteForm.allocated = invitee['AllowedCount']
-			inviteForm.attending = invitee['Attending']
-			inviteForm.rsvpd = invitee['Updated']
-			inviteListForm.invitees.append_entry(inviteForm)
+	#get all invite info
+	response = table.scan()
+	invites = response['Items']
 
-
-	return render_template('admin.html', inviteListForm=inviteListForm)
+	return render_template('admin.html', invitees = invites)
 
 
 @app.route('/', methods=['GET'])

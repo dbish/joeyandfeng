@@ -22,33 +22,34 @@ p {line-height: 2}
 
 
 <div class="w3-container w3-padding-64 w3-pale-red w3-center w3-wide" id="rsvp">
-	<form action="/godView" method="post">
-		{{inviteListForm.csrf_token()}}
 		<table border="1">
 			<tr>
 			 <th>Invite Code</th>
 			 <th>Name</th>
-			 <th>Allocated</th>
-			 <th>Attending</th>
 			 <th>RSVPd (UTC)</th>
+			 <th>Attending</th>
+			 <th>Allocated</th>
+			 <th>Email</th>
 			</tr>
-			{% for invite in inviteListForm.invitees %}
+			{% for invite in invitees %}
 			<tr>
-			{{invite.csrf_token()}}
-			 <td>{{invite.inviteID(readonly=true)}}</td>
-			 <td>{{invite.guestName}}</td>
-			 <td>{{invite.allocated}}</td>
-			 <td>{{invite.attending}}</td>
-			{% if invite.rsvpd.data == "" %}
+			 <td>{{invite['InviteID']}}</td>
+			 <td>{{invite['GuestName']}}</td>
+			{% if invite['Updated'] == "0" %}
 			 <td>no</td>
 			{% else %}
-			 <td>yes</td>
+			 <td>{{invite['Updated']}}</td>
 			{% endif %}
+			{% if invite['Updated'] == "0" %}
+			 <td>TBD</td>
+			{% else %}
+			 <td>{{invite['Attending']}}</td>
+			{% endif %}
+			 <td>{{invite['AllowedCount']}}</td>
+			 <td>{{invite['EmailAddress']}}</td>
 			</tr>
 			{% endfor %}
 		</table>
-		<button type="submit">Update</button>
-	</form>
 </div>
 <!-- Header / Home-->
 <header class="w3-display-container w3-wide bgimg w3-grayscale-min" id="home">
