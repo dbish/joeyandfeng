@@ -30,6 +30,7 @@ p {line-height: 2}
 			 <th>Attending</th>
 			 <th>Allocated</th>
 			 <th>Email</th>
+			 <th>Emails Sent</th>
 			</tr>
 			{% for invite in invitees %}
 			<tr>
@@ -47,6 +48,7 @@ p {line-height: 2}
 			{% endif %}
 			 <td>{{invite['AllowedCount']}}</td>
 			 <td>{{invite['EmailAddress']}}</td>
+			 <td>{{invite['EmailSent']}}</td>
 			</tr>
 			{% endfor %}
 		</table>

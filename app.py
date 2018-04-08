@@ -82,8 +82,18 @@ def rsvp(iid):
 		flash('Invitation code not found! Please check your email and reenter.')
 		return redirect(url_for('index'))
 	allowedCount = str(invite['AllowedCount'])
+	attendingCount = str(invite['Attending'])
+	updated = str(invite['Updated'])
+	
 	completed = False
-	print(allowedCount)
+	if updated != '0':
+		completed = True
+
+	attending = False
+	print(attendingCount)
+	if attendingCount != '0':
+		attending = True
+
 	if allowedCount == '1':
 		rsvpForm = RSVPForm1()
 	elif allowedCount == '2':
@@ -115,11 +125,13 @@ def rsvp(iid):
 			print("is not attending")
 
 		completed = updateTable(iid, attending, partySize)
+		return redirect(url_for('rsvp', iid=iid)) 
 
 
 	return render_template('rsvp.html', date=str("test"), form=form, 
 		rsvpForm = rsvpForm, invite=invite, completed=completed, 
-		partySize = allowedCount, name=invite['GuestName'], iid=iid)
+		partySize = allowedCount, name=invite['GuestName'], iid=iid,
+		attending_count=attendingCount, attending=attending)
 		
 
 if __name__=='__main__':

@@ -33,7 +33,16 @@ p {line-height: 2}
 
 <div class="w3-container w3-padding-64 w3-pale-red w3-center w3-wide" id="rsvp">
 		{% if completed %}
-		Thanks for RSVPing! You can still make updates to your choice until May 1st using the form below.
+		<p align="left">
+		We've received your RSVP!<br>
+		We have you marked down as <b>
+			{% if attending %}
+		attending with a party of {{attending_count}} (including you). 
+			{% else %}
+		not attending.
+			{% endif %}</b>		
+		You can still make updates to your choice until May 1st using the form below.
+		</p>
 		{% endif %}
 		<h1>RSVP for The Event of the season</h1>
 		{% if invite %}
@@ -41,7 +50,7 @@ p {line-height: 2}
 		<form action="{{url_for('rsvp', iid=iid)}}" method="post">
 			{{rsvpForm.hidden_tag()}}
 			<p>Name: {{name}}</p>
-			<p>Will you be attending? {{rsvpForm.isAttending}}</p>
+			<p>I will be attending (leave unchecked if you will not) {{rsvpForm.isAttending}}</p>
 			{% if rsvpForm.partySize %}
 			<p>Size of party?{{rsvpForm.partySize}}</p>
 			{% endif %}
